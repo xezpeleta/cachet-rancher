@@ -24,7 +24,7 @@ services:
       - DB_USERNAME=postgres
       - DB_PASSWORD=${database_password}
       - DB_PREFIX=chq_
-      - APP_KEY=${APP_KEY:-null}
+      - APP_KEY=${app_key}
       - APP_LOG=errorlog
       - DEBUG=${debug}
     depends_on:
