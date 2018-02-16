@@ -1,0 +1,8 @@
+name: Cachet
+description: |
+  An open source status page system for everyone
+version: v0.1
+category: Security
+maintainer: Xabi Ezpeleta <xezpeleta@gmail.com>
+license: BSD
+projectURL: https://cachethq.io
