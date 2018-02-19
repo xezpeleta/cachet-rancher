@@ -8,12 +8,13 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${database_password}
-    restart: always
 
   cachet:
     image: cachethq/docker:2.3.13
+    {{- if ne .Values.http_enabled "false"}}
     ports:
-      - ${public_port}:8000
+      - ${public_port}:8000/tcp
+    {{- end}}
     links:
       - postgres:postgres
     environment:
@@ -29,7 +30,10 @@ services:
       - DEBUG=${debug}
     depends_on:
       - postgres
-    restart: on-failure
+    health_check:
+      port: 8000
+      request_line: GET /index.php HTTP/1.0
+      strategy: recreate
 
 volumes:
   db_data:

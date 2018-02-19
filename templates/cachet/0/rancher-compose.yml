@@ -5,6 +5,12 @@ catalog:
   description: "An open source status page for everyone"
   minimum_rancher_version: v0.51.0
   questions:
+    - variable: http_enabled
+      description: "Enable public HTTP port"
+      label: "Enable public port"
+      required: true
+      default: "true"
+      type: "boolean"
     - variable: public_port
       description: "public port to access Cachet web"
       label: "Public Port"
