@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres:9.5
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${database_password}
+
+  cachet:
+    image: cachethq/docker:2.3.15
+    {{- if ne .Values.http_enabled "false"}}
+    ports:
+      - ${public_port}:8000/tcp
+    {{- end}}
+    links:
+      - postgres:postgres
+    environment:
+      - DB_DRIVER=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=postgres
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=${database_password}
+      - DB_PREFIX=chq_
+      - APP_KEY=${app_key}
+      - APP_LOG=errorlog
+      - DEBUG=${debug}
+    depends_on:
+      - postgres
+    health_check:
+      port: 8000
+      request_line: GET /index.php HTTP/1.0
+      strategy: recreate
+
+volumes:
+  db_data:
+    driver: ${volume_driver}

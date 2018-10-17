@@ -1,7 +1,7 @@
 name: Cachet
 description: |
   An open source status page system for everyone
-version: v0.1
+version: v2.3.15
 category: Security
 maintainer: Xabi Ezpeleta <xezpeleta@gmail.com>
 license: BSD
